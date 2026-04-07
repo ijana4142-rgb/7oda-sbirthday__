@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 7oda 💙</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0a1f44, #1e90ff, #ffc0cb);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+}
+
+#startBtn {
+    margin-top: 40vh;
+    padding: 15px 30px;
+    font-size: 20px;
+    background: white;
+    color: #0a1f44;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+h1 {
+    display: none;
+    margin-top: 15vh;
+    font-size: 45px;
+}
+
+#text {
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -150px;
+    width: 40px;
+    height: 60px;
+    border-radius: 50%;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    from {transform: translateY(0);}
+    to {transform: translateY(-110vh);}
+}
+</style>
+</head>
+
+<body>
+
+<button id="startBtn">اضغط هون 💌</button>
+
+<h1 id="title">🎉 Happy Birthday 7oda 🎉</h1>
+<div id="text"></div>
+
+<audio id="music" loop>
+    <!-- إذا عندك ملف حقيقي حطي اسمه هون -->
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const btn = document.getElementById("startBtn");
+const title = document.getElementById("title");
+const textDiv = document.getElementById("text");
+const music = document.getElementById("music");
+
+const message = `لاغلاهم على قلبي حبيبي محمود 💙
+
+كل عام وانت سنينك كلها حلوة مثل وجودك بحياتي
+يارب توصل لكلشي بحياتك وتصير بمراكز عالية
+كل يوم بمر عم بكون فخورة فيك اكتر واكتر 🤍
+
+وبتمنى تضل مبسوط عطول
+ويارب ما يفارقني وجودك لحظة بحياتي
+لانه كله كوم واخر حبة كوم تاني 🩷
+
+بحبك 💙`;
+
+btn.onclick = () => {
+    btn.style.display = "none";
+    title.style.display = "block";
+    startTyping();
+    startBalloons();
+};
+
+function startTyping() {
+    let i = 0;
+    let musicStarted = false;
+
+    function type() {
+        if (i < message.length) {
+
+            // تشغيل الموسيقى مع أول حرف + fade in
+            if (!musicStarted) {
+                music.volume = 0;
+                music.play();
+                fadeInMusic();
+                musicStarted = true;
+            }
+
+            textDiv.innerHTML += message.charAt(i) === "\n" ? "<br>" : message.charAt(i);
+            i++;
+            setTimeout(type, 50);
+        }
+    }
+    type();
+}
+
+function fadeInMusic() {
+    let vol = 0;
+    const fade = setInterval(() => {
+        if (vol < 1) {
+            vol += 0.05;
+            music.volume = vol;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+}
+
+function startBalloons() {
+    setInterval(() => {
+        const balloon = document.createElement("div");
+        balloon.classList.add("balloon");
+
+        const colors = ["#1e90ff", "#ffffff", "#ffc0cb"];
+        balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+        balloon.style.left = Math.random() * 100 + "vw";
+
+        document.body.appendChild(balloon);
+
+        setTimeout(() => balloon.remove(), 6000);
+    }, 400);
+}
+</script>
+
+</body>
+</html>
